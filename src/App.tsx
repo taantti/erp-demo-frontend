@@ -1,18 +1,25 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import DashboardPage from "./pages/DashboardPage"
-import LoginPage from "./pages/LoginPage"
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <Routes>
+            <Route path="/" element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AuthProvider >
   )
 }
 
