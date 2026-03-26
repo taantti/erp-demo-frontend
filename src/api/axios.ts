@@ -1,14 +1,14 @@
 import axios from "axios";
 
 /**
- * 
+ * Axios instance for API calls
  */
 const api = axios.create({
     baseURL: "http://localhost:8000",
 });
 
 /**
- * 
+ * Add authorization header to all requests
  */
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem("token");
