@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import ProductsPage from "./pages/ProductsPage";
+import ProductFormPage from "./pages/ProductFormPage";
 import LoginPage from "./pages/LoginPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NavBar from "./components/Navbar";
-import ProductFormPage from "./pages/ProductFormPage";
+import ProductCategoriesPage from "./pages/ProductCategoriesPage";
+import ProductCategoryFormPage from "./pages/ProductCategoryFormPage";
 
 /**
  * Main application component
@@ -50,6 +52,21 @@ const AppLayout = () => {
         <Route path="/products/:id/edit" element={
           <ProtectedRoute>
             <ProductFormPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/products/categories" element={
+          <ProtectedRoute>
+            <ProductCategoriesPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/products/categories/new" element={
+          <ProtectedRoute>
+            <ProductCategoryFormPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/products/categories/:id/edit" element={
+          <ProtectedRoute>
+            <ProductCategoryFormPage />
           </ProtectedRoute>
         } />
         <Route path="/login" element={<LoginPage />} />
