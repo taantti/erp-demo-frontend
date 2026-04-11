@@ -11,6 +11,18 @@ function ProductsPage() {
 
     const [products, setProducts] = useState<Product[]>([]); // Array of products from the API
 
+    // Handle delete product
+    const handleDelete = async (productId: string) => {
+        if(!confirm("Are you sure you want to delete this product?")) return;
+
+        try {
+            await api.delete(`/product/${productId}`);
+            setProducts(products.filter((product) => product._id !== productId)); // Remove the deleted product from the list
+        } catch (error) {
+            console.log("Error deleting product:", error);
+        }
+    }
+
     // Fetch products from the API on component mount
     useEffect(() => {
         api.get<Product[]>("/product/")
@@ -54,6 +66,7 @@ function ProductsPage() {
                                 <Link to={`/products/${product._id}/edit`}>
                                     Edit <img src="/edit.png" alt="Edit" />
                                 </Link>
+                                <button onClick={() => handleDelete(product._id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
