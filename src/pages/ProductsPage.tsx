@@ -37,7 +37,7 @@ function ProductsPage() {
                         <th className="border border-gray-300 px-4 py-2">Gross Price</th>
                         <th className="border border-gray-300 px-4 py-2">VAT Rate</th>
                         <th className="border border-gray-300 px-4 py-2">Active</th>
-
+                        <th className="border border-gray-300 px-4 py-2">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +50,11 @@ function ProductsPage() {
                             <td className="border border-gray-300 px-4 py-2">{product.grossPrice}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.vatRate}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.active ? "Yes" : "No"}</td>
+                            <td className="border border-gray-300 px-4 py-2">
+                                <Link to={`/products/${product._id}/edit`}>
+                                    Edit <img src="/edit.png" alt="Edit" />
+                                </Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

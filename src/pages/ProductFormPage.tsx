@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axios";
 import type { ProductRequest } from "../types/product";
 import { AxiosError } from "axios";
-
 
 /**
  * Return product form page
@@ -24,11 +23,26 @@ function ProductFormPage() {
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
 
+    const { id: productId } = useParams();
+
+    useEffect(() => {
+        if(productId) {
+            api.get(`/product/${productId}`)
+                .then(response => setFormData(response.data))
+                .catch(error => setError(error.response?.data?.error || "Product retrieval failed"));
+        }
+    }, [productId])
+
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         try {
-            await api.post('/product', formData);
+            if(productId) {
+                await api.put(`/product/${productId}`, formData);
+            } else {
+                await api.post('/product', formData);
+            }
             navigate("/products");
         } catch (error) {
             if (error instanceof AxiosError) {

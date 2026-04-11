@@ -42,15 +42,16 @@ const AppLayout = () => {
             <ProductsPage />
           </ProtectedRoute>
         } />
-
         <Route path="/products/new" element={
           <ProtectedRoute>
             <ProductFormPage />
           </ProtectedRoute>
         } />
-
-
-
+        <Route path="/products/:id/edit" element={
+          <ProtectedRoute>
+            <ProductFormPage />
+          </ProtectedRoute>
+        } />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
