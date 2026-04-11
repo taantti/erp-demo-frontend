@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NavBar from "./components/Navbar";
+import ProductFormPage from "./pages/ProductFormPage";
 
 /**
  * Main application component
@@ -41,6 +42,15 @@ const AppLayout = () => {
             <ProductsPage />
           </ProtectedRoute>
         } />
+
+        <Route path="/products/new" element={
+          <ProtectedRoute>
+            <ProductFormPage />
+          </ProtectedRoute>
+        } />
+
+
+
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>

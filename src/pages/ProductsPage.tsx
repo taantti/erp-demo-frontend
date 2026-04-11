@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from "../api/axios";
 import type { Product } from "../types/product";
+import { Link } from "react-router-dom";
 
 /**
  * Products page component
@@ -23,6 +24,9 @@ function ProductsPage() {
 
     return (
         <div className="p-8">
+            <ul>
+                <li><Link to="/products/new">New Product</Link></li>
+            </ul>
             <table className="mt-4 w-full text-left border-collapse">
                 <thead>
                     <tr>
