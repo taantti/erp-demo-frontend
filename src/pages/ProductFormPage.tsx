@@ -67,6 +67,7 @@ function ProductFormPage() {
             <h1 className="text-2xl font-bold">Product form</h1>
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                <label>Name
                 <input
                     type="text"
                     name="name"
@@ -77,6 +78,8 @@ function ProductFormPage() {
                     }}
                     placeholder="Name"
                 />
+                </label>
+                <label>SKU
                 <input
                     type="text"
                     name="sku"
@@ -87,6 +90,7 @@ function ProductFormPage() {
                     }}
                     placeholder="SKU"
                 />
+                </label>
 
                     {categories.map(cat => (
                         <label key={cat._id}>
@@ -110,6 +114,7 @@ function ProductFormPage() {
 
 
 
+                <label>Unit
                 <select
                     name="unit"
                     value={formData.unit}
@@ -128,6 +133,8 @@ function ProductFormPage() {
                     <option value="box">Box</option>
                     <option value="no_unit">No unit</option>
                 </select>
+                </label>
+                <label>Description
                 <input
                     type="text"
                     name="description"
@@ -138,6 +145,8 @@ function ProductFormPage() {
                     }}
                     placeholder="Description"
                 />
+                </label>
+                <label>Net price
                 <input
                     type="text"
                     name="netPrice"
@@ -148,6 +157,8 @@ function ProductFormPage() {
                     }}
                     placeholder="Net price"
                 />
+                </label>
+                <label>Gross price
                 <input
                     type="text"
                     name="grossPrice"
@@ -158,6 +169,8 @@ function ProductFormPage() {
                     }}
                     placeholder="Gross price"
                 />
+                </label>
+                <label>VAT rate
                 <input
                     type="text"
                     name="vatRate"
@@ -168,16 +181,20 @@ function ProductFormPage() {
                     }}
                     placeholder="VAT rate"
                 />
-                <input
-                    type="text"
+                </label>
+                <label>Active
+                <select
                     name="active"
                     value={formData.active.toString()}
                     onChange={(event) => {
                         setFormData({ ...formData, active: event.target.value === "true" });
                         setError("");
                     }}
-                    placeholder="Active"
-                />
+                >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                </label>
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
             </form>
         </div>

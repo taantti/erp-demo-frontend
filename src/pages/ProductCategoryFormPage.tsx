@@ -54,6 +54,7 @@ function ProductCategoryFormPage() {
             <h1 className="text-2xl font-bold">Product category form</h1>
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                <label>Name
                 <input
                     type="text"
                     name="name"
@@ -64,6 +65,8 @@ function ProductCategoryFormPage() {
                     }}
                     placeholder="Name"
                 />
+                </label>
+                <label>Slug
                 <input
                     type="text"
                     name="slug"
@@ -74,6 +77,8 @@ function ProductCategoryFormPage() {
                     }}
                     placeholder="Slug"
                 />
+                </label>
+                <label>Description
                 <input
                     type="text"
                     name="description"
@@ -84,16 +89,20 @@ function ProductCategoryFormPage() {
                     }}
                     placeholder="Description"
                 />
-                <input
-                    type="text"
+                </label>
+                <label>Active
+                <select
                     name="active"
                     value={formData.active.toString()}
                     onChange={(event) => {
                         setFormData({ ...formData, active: event.target.value === "true" });
                         setError("");
                     }}
-                    placeholder="Active"
-                />
+                >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                </label>
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
             </form>
         </div>
