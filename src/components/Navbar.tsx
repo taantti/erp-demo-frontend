@@ -22,6 +22,7 @@ const NavBar = () => {
             <NavLink to="/">Dashboard</NavLink>
             <NavLink to="/products">Products</NavLink>
             <NavLink to="/products/categories">Product Categories</NavLink>
+            <NavLink to="/users">Users</NavLink>
             <button onClick={handleLogout}>Logout</button>    
         </nav>
     )

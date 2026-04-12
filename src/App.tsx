@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import NavBar from "./components/Navbar";
 import ProductCategoriesPage from "./pages/ProductCategoriesPage";
 import ProductCategoryFormPage from "./pages/ProductCategoryFormPage";
+import UsersPage from "./pages/UsersPage";
+import UserFormPage from "./pages/UserFormPage";
 
 /**
  * Main application component
@@ -67,6 +69,21 @@ const AppLayout = () => {
         <Route path="/products/categories/:id/edit" element={
           <ProtectedRoute>
             <ProductCategoryFormPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/users" element={
+          <ProtectedRoute>
+            <UsersPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/users/new" element={
+          <ProtectedRoute>
+            <UserFormPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/users/:id/edit" element={
+          <ProtectedRoute>
+            <UserFormPage />
           </ProtectedRoute>
         } />
         <Route path="/login" element={<LoginPage />} />
