@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axios";
 import type { ProductRequest } from "../types/product";
 import { AxiosError } from "axios";
+import type { ProductCategory } from "../types/productCategory";
 
 /**
  * Return product form page
@@ -12,6 +13,7 @@ function ProductFormPage() {
     const [formData, setFormData] = useState<ProductRequest>({
         name: "",
         sku: "",
+        categoryIds: [],
         unit: "piece",
         description: "",
         netPrice: 0,
@@ -21,6 +23,7 @@ function ProductFormPage() {
     });
 
     const [error, setError] = useState<string>("");
+    const [categories, setCategories] = useState<ProductCategory[]>([])
     const navigate = useNavigate();
 
     const { id: productId } = useParams();
@@ -31,7 +34,13 @@ function ProductFormPage() {
                 .then(response => setFormData(response.data))
                 .catch(error => setError(error.response?.data?.error || "Product retrieval failed"));
         }
-    }, [productId])
+    }, [productId]);
+
+    useEffect(() => {
+        api.get<ProductCategory[]>("/product/category")
+        .then(response => setCategories(response.data))
+        .catch(error => setError(error.response?.data.error || "Product category retrieval failed"));
+    }, []);
 
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -78,6 +87,29 @@ function ProductFormPage() {
                     }}
                     placeholder="SKU"
                 />
+
+                    {categories.map(cat => (
+                        <label key={cat._id}>
+                            <input
+                                type="checkbox"
+                                name="category"
+                                value={cat._id}
+                                checked={formData.categoryIds.includes(cat._id)}
+                                onChange={(event) => {
+                                    if (event.target.checked) {
+                                        setFormData({ ...formData, categoryIds: [...formData.categoryIds, cat._id] });
+                                    } else {
+                                        setFormData({ ...formData, categoryIds: formData.categoryIds.filter(id => id !== cat._id) });
+                                    }
+                                    setError("");
+                                }}
+                            />
+                            {cat.name}
+                        </label>
+                    ))}
+
+
+
                 <select
                     name="unit"
                     value={formData.unit}
