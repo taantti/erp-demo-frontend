@@ -20,6 +20,7 @@ function UserFormPage() {
     });
 
     const [error, setError] = useState<string>("");
+    const [roles, setRoles] = useState<string[]>([]);
     const navigate = useNavigate();
 
     const { id: userId } = useParams();
@@ -41,6 +42,12 @@ function UserFormPage() {
                 .catch(error => setError(error.response?.data?.error || "User retrieval failed"));
         }
     }, [userId]);
+
+    useEffect(() => {
+        api.get<string[]>("/asset/user/roles")
+            .then(response => setRoles(response.data))
+            .catch(error => setError(error.response?.data?.error || "User roles retrieval failed"));
+    }, [formData]);
 
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -130,16 +137,18 @@ function UserFormPage() {
                     />
                 </label>
                 <label>Role
-                    <input
-                        type="text"
+                    <select
                         name="role"
                         value={formData.role}
                         onChange={(event) => {
                             setFormData({ ...formData, role: event.target.value });
                             setError("");
                         }}
-                        placeholder="Role"
-                    />
+                    >
+                        {roles.map(role => (
+                            <option key={role} value={role}>{role}</option>
+                        ))}
+                    </select>
                 </label>
                 <label>Active
                     <select
