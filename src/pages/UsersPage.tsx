@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from "../api/axios";
 import type { User } from "../types/user";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * Users page component
@@ -10,10 +11,11 @@ import { Link } from "react-router-dom";
 function UsersPage() {
 
     const [users, setUsers] = useState<User[]>([]); // Array of users from the API
+    const { userData } = useAuth(); // Get the current user from the auth context
 
     // Handle delete user
     const handleDelete = async (userId: string) => {
-        if(!confirm("Are you sure you want to delete this user?")) return;
+        if (!confirm("Are you sure you want to delete this user?")) return;
 
         try {
             await api.delete(`/user/${userId}`);
@@ -37,7 +39,9 @@ function UsersPage() {
     return (
         <div className="p-8">
             <ul>
-                <li><Link to="/users/new">New user</Link></li>
+                {userData?.rolePermission?.user?.createUser?.access && (
+                    <li><Link to="/users/new">New user</Link></li>
+                )}
             </ul>
             <table className="mt-4 w-full text-left border-collapse">
                 <thead>
@@ -61,10 +65,14 @@ function UsersPage() {
                             <td className="border border-gray-300 px-4 py-2">{user.role}</td>
                             <td className="border border-gray-300 px-4 py-2">{user.active ? "Yes" : "No"}</td>
                             <td className="border border-gray-300 px-4 py-2">
-                                <Link to={`/users/${user._id}/edit`}>
-                                    Edit <img src="/edit.png" alt="Edit" />
-                                </Link>
-                                <button onClick={() => handleDelete(user._id)}>Delete</button>
+                                {userData?.rolePermission?.user?.updateUser?.access && (
+                                    <Link to={`/users/${user._id}/edit`}>
+                                        Edit <img src="/edit.png" alt="Edit" />
+                                    </Link>
+                                )}
+                                {userData?.rolePermission?.user?.deleteUser?.access && (
+                                    <button onClick={() => handleDelete(user._id)}>Delete</button>
+                                )}
                             </td>
                         </tr>
                     ))}

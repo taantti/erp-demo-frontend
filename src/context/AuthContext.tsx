@@ -7,11 +7,11 @@ import { decodeToken } from '../utils/token';
  * Defines the structure of the authentication and user context
  */
 interface AuthContextType {
-    token: string | null,           // User token or null if not authenticated
-    user: TokenPayload | null,      // User payload or null if not authenticated
-    login: (token: string) => void, // Function to set the token
-    logout: () => void,             // Function to remove the token
-    isAuthenticated: boolean        // Boolean indicating if the user is authenticated
+    token:           string | null,           // User token or null if not authenticated
+    userData:        TokenPayload | null,     // User payload or null if not authenticated
+    login:           (token: string) => void, // Function to set the token
+    logout:          () => void,              // Function to remove the token
+    isAuthenticated: boolean                  // Boolean indicating if the user is authenticated
 }
 
 /**
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      * @returns The provider component
      */
     return (
-        <AuthContext.Provider value={{ token, user, login, logout, isAuthenticated: !!token }}>
+        <AuthContext.Provider value={{ token, userData: user, login, logout, isAuthenticated: !!token }}>
             {children}
         </AuthContext.Provider>
     );

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from "../api/axios";
 import type { Product } from "../types/product";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * Products page component
@@ -10,10 +11,11 @@ import { Link } from "react-router-dom";
 function ProductsPage() {
 
     const [products, setProducts] = useState<Product[]>([]); // Array of products from the API
+    const { userData } = useAuth(); // Get the current user from the auth context
 
     // Handle delete product
     const handleDelete = async (productId: string) => {
-        if(!confirm("Are you sure you want to delete this product?")) return;
+        if (!confirm("Are you sure you want to delete this product?")) return;
 
         try {
             await api.delete(`/product/${productId}`);
@@ -37,7 +39,9 @@ function ProductsPage() {
     return (
         <div className="p-8">
             <ul>
-                <li><Link to="/products/new">New Product</Link></li>
+                {userData?.rolePermission?.product?.createProduct?.access && (
+                    <li><Link to="/products/new">New Product</Link></li>
+                )}
             </ul>
             <table className="mt-4 w-full text-left border-collapse">
                 <thead>
@@ -63,10 +67,15 @@ function ProductsPage() {
                             <td className="border border-gray-300 px-4 py-2">{product.vatRate}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.active ? "Yes" : "No"}</td>
                             <td className="border border-gray-300 px-4 py-2">
-                                <Link to={`/products/${product._id}/edit`}>
-                                    Edit <img src="/edit.png" alt="Edit" />
-                                </Link>
-                                <button onClick={() => handleDelete(product._id)}>Delete</button>
+                                {userData?.rolePermission?.product?.updateProduct?.access && (
+                                    <Link to={`/products/${product._id}/edit`}>
+                                        Edit <img src="/edit.png" alt="Edit" />
+                                    </Link>
+                                )}
+                                {userData?.rolePermission?.product?.deleteProduct?.access && (
+                                    <button onClick={() => handleDelete(product._id)}>Delete</button>
+                                )}
+
                             </td>
                         </tr>
                     ))}

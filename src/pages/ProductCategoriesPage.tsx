@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from "../api/axios";
 import type { ProductCategory } from "../types/productCategory";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * Product categories page component
@@ -10,6 +11,7 @@ import { Link } from "react-router-dom";
 function ProductCategoriesPage() {
 
     const [categories, setCategories] = useState<ProductCategory[]>([]); // Array of product categories from the API
+    const { userData } = useAuth(); // Get the current user from the auth context
 
     // Handle delete product category
     const handleDelete = async (categoryId: string) => {
@@ -37,7 +39,9 @@ function ProductCategoriesPage() {
     return (
         <div className="p-8">
             <ul>
-                <li><Link to="/products/categories/new">New product category</Link></li>
+                {userData?.rolePermission?.productCategory?.createProductCategory?.access && (
+                    <li><Link to="/products/categories/new">New product category</Link></li>
+                )}
             </ul>
             <table className="mt-4 w-full text-left border-collapse">
                 <thead>
@@ -46,6 +50,7 @@ function ProductCategoriesPage() {
                         <th className="border border-gray-300 px-4 py-2">Slug</th>
                         <th className="border border-gray-300 px-4 py-2">Description</th>
                         <th className="border border-gray-300 px-4 py-2">Active</th>
+                        <th className="border border-gray-300 px-4 py-2">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,10 +61,14 @@ function ProductCategoriesPage() {
                             <td className="border border-gray-300 px-4 py-2">{category.description}</td>
                             <td className="border border-gray-300 px-4 py-2">{category.active ? "Yes" : "No"}</td>
                             <td className="border border-gray-300 px-4 py-2">
-                                <Link to={`/products/categories/${category._id}/edit`}>
-                                    Edit <img src="/edit.png" alt="Edit" />
-                                </Link>
-                                <button onClick={() => handleDelete(category._id)}>Delete</button>
+                                {userData?.rolePermission?.productCategory?.updateProductCategory?.access && (
+                                    <Link to={`/products/categories/${category._id}/edit`}>
+                                        Edit <img src="/edit.png" alt="Edit" />
+                                    </Link>
+                                )}
+                                {userData?.rolePermission?.productCategory?.deleteProductCategory?.access && (
+                                    <button onClick={() => handleDelete(category._id)}>Delete</button>
+                                )}
                             </td>
                         </tr>
                     ))}
