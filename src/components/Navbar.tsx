@@ -19,13 +19,13 @@ const NavBar = () => {
     }
 
     return (
-        <nav className="bg-white p-4 flex gap-4 items-center">
+        <nav className="bg-white p-4 flex gap-4 items-center shadow-sm w-full">
             <NavLink to="/">Dashboard</NavLink>
             <NavLink to="/products">Products</NavLink>
             <NavLink to="/products/categories">Product Categories</NavLink>
             <NavLink to="/users">Users</NavLink>
-            <span className="text-gray-600">{user?.user_first_name} {user?.user_last_name}</span>
-            <button onClick={handleLogout}>Logout</button>    
+            <button onClick={handleLogout}>Logout</button>  
+            <span className="text-gray-600">{user?.user_first_name} {user?.user_last_name}</span>  
         </nav>
     )
 }

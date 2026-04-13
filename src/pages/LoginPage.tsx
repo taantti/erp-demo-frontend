@@ -54,7 +54,7 @@ function LoginPage() {
      * @returns Login page
      */
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center flex-1">
             <h1 className="text-2xl font-bold">Login</h1>
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
