@@ -36,6 +36,14 @@ function ProductsPage() {
             });
     }, []);
 
+    if (!userData?.rolePermission?.product) {
+        return (
+            <div className="p-8">
+                <p>You do not have permission to view products.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="p-8">
             <ul>

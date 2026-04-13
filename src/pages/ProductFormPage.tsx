@@ -4,6 +4,7 @@ import api from "../api/axios";
 import type { ProductRequest } from "../types/product";
 import { AxiosError } from "axios";
 import type { ProductCategory } from "../types/productCategory";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * Return product form page
@@ -27,6 +28,7 @@ function ProductFormPage() {
     const [units, setUnits] = useState<string[]>([]);
     const navigate = useNavigate();
     const { id: productId } = useParams();
+    const { userData } = useAuth(); // Get the current user from the auth context
 
     /**
      * Load product data if editing
@@ -56,6 +58,14 @@ function ProductFormPage() {
             .then(response => setUnits(response.data))
             .catch(error => setError(error.response?.data?.error || "Product units retrieval failed"));
     }, []);
+
+    if (!userData?.rolePermission?.product) {
+        return (
+            <div className="p-8">
+                <p>You do not have permission to create or edit products.</p>
+            </div>
+        );
+    }
 
     /**
      * Handle form submission
