@@ -5,6 +5,7 @@ import ProductFormPage from "./pages/ProductFormPage";
 import LoginPage from "./pages/LoginPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PermissionGuard from "./components/PermissionGuard";
 import NavBar from "./components/Navbar";
 import ProductCategoriesPage from "./pages/ProductCategoriesPage";
 import ProductCategoryFormPage from "./pages/ProductCategoryFormPage";
@@ -43,47 +44,65 @@ const AppLayout = () => {
         } />
         <Route path="/products" element={
           <ProtectedRoute>
+            <PermissionGuard module="product" feature="readProducts">
             <ProductsPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/new" element={
           <ProtectedRoute>
+            <PermissionGuard module="product" feature="createProduct">
             <ProductFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/:id/edit" element={
           <ProtectedRoute>
+            <PermissionGuard module="product" feature="updateProduct">
             <ProductFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/categories" element={
           <ProtectedRoute>
+            <PermissionGuard module="productCategory" feature="readProductCategories">
             <ProductCategoriesPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/categories/new" element={
           <ProtectedRoute>
+            <PermissionGuard module="productCategory" feature="createProductCategory">
             <ProductCategoryFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/categories/:id/edit" element={
           <ProtectedRoute>
+            <PermissionGuard module="productCategory" feature="updateProductCategory">
             <ProductCategoryFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/users" element={
           <ProtectedRoute>
+            <PermissionGuard module="user" feature="readUsers">
             <UsersPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/users/new" element={
           <ProtectedRoute>
+            <PermissionGuard module="user" feature="createUser">
             <UserFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/users/:id/edit" element={
           <ProtectedRoute>
+            <PermissionGuard module="user" feature="updateUser">
             <UserFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/login" element={<LoginPage />} />

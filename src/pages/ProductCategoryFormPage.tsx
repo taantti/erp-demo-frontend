@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axios";
 import type { ProductCategoryRequest } from "../types/productCategory";
 import { AxiosError } from "axios";
-import { useAuth } from "../context/AuthContext";
 
 /**
  * Return product category form page
@@ -20,7 +19,6 @@ function ProductCategoryFormPage() {
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
     const { id: categoryId } = useParams();
-    const { userData } = useAuth(); // Get the current user from the auth context
 
     /**
      * Load category data if editing
@@ -32,14 +30,6 @@ function ProductCategoryFormPage() {
                 .catch(error => setError(error.response?.data?.error || "Category retrieval failed"));
         }
     }, [categoryId])
-
-    if (!userData?.rolePermission?.productCategory) {
-        return (
-            <div className="p-8">
-                <p>You do not have permission to create or edit product categories.</p>
-            </div>
-        );
-    }
 
     /**
      * Handle form submission

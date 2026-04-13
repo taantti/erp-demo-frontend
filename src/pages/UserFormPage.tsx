@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axios";
 import type { UserRequest } from "../types/user";
 import { AxiosError } from "axios";
-import { useAuth } from "../context/AuthContext";
 
 /**
  * Return user form page
@@ -24,7 +23,6 @@ function UserFormPage() {
     const [roles, setRoles] = useState<string[]>([]);
     const navigate = useNavigate();
     const { id: userId } = useParams();
-    const { userData } = useAuth(); // Get the current user from the auth context
 
     /**
      * Load user data if editing
@@ -55,14 +53,6 @@ function UserFormPage() {
             .then(response => setRoles(response.data))
             .catch(error => setError(error.response?.data?.error || "User roles retrieval failed"));
     }, []);
-
-    if (!userData?.rolePermission?.user) {
-        return (
-            <div className="p-8">
-                <p>You do not have permission to create or edit users.</p>
-            </div>
-        );
-    }
 
     /**
      * Handle form submission

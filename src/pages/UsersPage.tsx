@@ -36,14 +36,6 @@ function UsersPage() {
             });
     }, []);
 
-    if (!userData?.rolePermission?.user) {
-        return (
-            <div className="p-8">
-                <p>You do not have permission to view users.</p>
-            </div>
-        );
-    }
-
     return (
         <div className="p-8">
             <ul>
