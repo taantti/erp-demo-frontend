@@ -47,7 +47,7 @@ function UserFormPage() {
         api.get<string[]>("/asset/user/roles")
             .then(response => setRoles(response.data))
             .catch(error => setError(error.response?.data?.error || "User roles retrieval failed"));
-    }, [formData]);
+    }, []);
 
 
     const handleSubmit = async (event: React.FormEvent) => {

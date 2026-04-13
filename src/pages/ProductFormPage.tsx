@@ -47,7 +47,7 @@ function ProductFormPage() {
         api.get<string[]>("/asset/product/units")
             .then(response => setUnits(response.data))
             .catch(error => setError(error.response?.data?.error || "Product units retrieval failed"));
-    }, [formData]);
+    }, []);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
