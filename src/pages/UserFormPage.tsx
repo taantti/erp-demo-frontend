@@ -5,7 +5,7 @@ import type { UserRequest } from "../types/user";
 import { AxiosError } from "axios";
 
 /**
- * Retur user form page
+ * Return user form page
  * @returns User form page
  */
 function UserFormPage() {
@@ -22,9 +22,11 @@ function UserFormPage() {
     const [error, setError] = useState<string>("");
     const [roles, setRoles] = useState<string[]>([]);
     const navigate = useNavigate();
-
     const { id: userId } = useParams();
 
+    /**
+     * Load user data if editing
+     */
     useEffect(() => {
         if (userId) {
             api.get(`/user/${userId}`)
@@ -43,6 +45,9 @@ function UserFormPage() {
         }
     }, [userId]);
 
+    /**
+     * Load user roles
+     */
     useEffect(() => {
         api.get<string[]>("/asset/user/roles")
             .then(response => setRoles(response.data))
@@ -50,6 +55,10 @@ function UserFormPage() {
     }, []);
 
 
+    /**
+     * Handle form submission
+     * @param event Form submission event
+     */
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -74,8 +83,9 @@ function UserFormPage() {
             <h1 className="text-2xl font-bold">User form</h1>
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                <label>Username
+                <label className="block mt-4 font-medium">Username
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="username"
                         value={formData.username}
@@ -87,8 +97,9 @@ function UserFormPage() {
                     />
                 </label>
                 {!userId && (
-                    <label>Password
+                    <label className="block mt-4 font-medium">Password
                         <input
+                            className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                             type="password"
                             name="password"
                             value={formData.password}
@@ -100,8 +111,9 @@ function UserFormPage() {
                         />
                     </label>
                 )}
-                <label>First name(s)
+                <label className="block mt-4 font-medium">First name(s)
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="first_name"
                         value={formData.first_name}
@@ -112,8 +124,9 @@ function UserFormPage() {
                         placeholder="First name"
                     />
                 </label>
-                <label>Last name
+                <label className="block mt-4 font-medium">Last name
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="last_name"
                         value={formData.last_name}
@@ -124,8 +137,9 @@ function UserFormPage() {
                         placeholder="Last name"
                     />
                 </label>
-                <label>Email
+                <label className="block mt-4 font-medium">Email
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="email"
                         value={formData.email}
@@ -136,8 +150,9 @@ function UserFormPage() {
                         placeholder="Email"
                     />
                 </label>
-                <label>Role
+                <label className="block mt-4 font-medium">Role
                     <select
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         name="role"
                         value={formData.role}
                         onChange={(event) => {
@@ -150,8 +165,9 @@ function UserFormPage() {
                         ))}
                     </select>
                 </label>
-                <label>Active
+                <label className="block mt-4 font-medium">Active
                     <select
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         name="active"
                         value={formData.active.toString()}
                         onChange={(event) => {

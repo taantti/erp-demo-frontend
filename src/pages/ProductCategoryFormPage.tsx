@@ -18,9 +18,11 @@ function ProductCategoryFormPage() {
 
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
-
     const { id: categoryId } = useParams();
 
+    /**
+     * Load category data if editing
+     */
     useEffect(() => {
         if (categoryId) {
             api.get(`/product/category/${categoryId}`)
@@ -30,6 +32,10 @@ function ProductCategoryFormPage() {
     }, [categoryId])
 
 
+    /**
+     * Handle form submission
+     * @param event Form submission event
+     */
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -54,54 +60,58 @@ function ProductCategoryFormPage() {
             <h1 className="text-2xl font-bold">Product category form</h1>
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                <label>Name
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={(event) => {
-                        setFormData({ ...formData, name: event.target.value });
-                        setError("");
-                    }}
-                    placeholder="Name"
-                />
+                <label className="block mt-4 font-medium">Name
+                    <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={(event) => {
+                            setFormData({ ...formData, name: event.target.value });
+                            setError("");
+                        }}
+                        placeholder="Name"
+                    />
                 </label>
-                <label>Slug
-                <input
-                    type="text"
-                    name="slug"
-                    value={formData.slug}
-                    onChange={(event) => {
-                        setFormData({ ...formData, slug: event.target.value });
-                        setError("");
-                    }}
-                    placeholder="Slug"
-                />
+                <label className="block mt-4 font-medium">Slug
+                    <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        type="text"
+                        name="slug"
+                        value={formData.slug}
+                        onChange={(event) => {
+                            setFormData({ ...formData, slug: event.target.value });
+                            setError("");
+                        }}
+                        placeholder="Slug"
+                    />
                 </label>
-                <label>Description
-                <input
-                    type="text"
-                    name="description"
-                    value={formData.description}
-                    onChange={(event) => {
-                        setFormData({ ...formData, description: event.target.value });
-                        setError("");
-                    }}
-                    placeholder="Description"
-                />
+                <label className="block mt-4 font-medium">Description
+                    <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        type="text"
+                        name="description"
+                        value={formData.description}
+                        onChange={(event) => {
+                            setFormData({ ...formData, description: event.target.value });
+                            setError("");
+                        }}
+                        placeholder="Description"
+                    />
                 </label>
-                <label>Active
-                <select
-                    name="active"
-                    value={formData.active.toString()}
-                    onChange={(event) => {
-                        setFormData({ ...formData, active: event.target.value === "true" });
-                        setError("");
-                    }}
-                >
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
+                <label className="block mt-4 font-medium">Active
+                    <select
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        name="active"
+                        value={formData.active.toString()}
+                        onChange={(event) => {
+                            setFormData({ ...formData, active: event.target.value === "true" });
+                            setError("");
+                        }}
+                    >
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
                 </label>
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
             </form>

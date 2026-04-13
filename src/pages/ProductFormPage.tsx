@@ -26,9 +26,11 @@ function ProductFormPage() {
     const [categories, setCategories] = useState<ProductCategory[]>([]);
     const [units, setUnits] = useState<string[]>([]);
     const navigate = useNavigate();
-
     const { id: productId } = useParams();
 
+    /**
+     * Load product data if editing
+     */
     useEffect(() => {
         if (productId) {
             api.get(`/product/${productId}`)
@@ -37,18 +39,28 @@ function ProductFormPage() {
         }
     }, [productId]);
 
+    /**
+     * Load product categories
+     */
     useEffect(() => {
         api.get<ProductCategory[]>("/product/category")
             .then(response => setCategories(response.data))
             .catch(error => setError(error.response?.data.error || "Product category retrieval failed"));
     }, []);
 
+    /**
+     * Load product units
+     */
     useEffect(() => {
         api.get<string[]>("/asset/product/units")
             .then(response => setUnits(response.data))
             .catch(error => setError(error.response?.data?.error || "Product units retrieval failed"));
     }, []);
 
+    /**
+     * Handle form submission
+     * @param event Form submission event
+     */
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -73,8 +85,9 @@ function ProductFormPage() {
             <h1 className="text-2xl font-bold">Product form</h1>
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                <label>Name
+                <label className="block mt-4 font-medium">Name
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="name"
                         value={formData.name}
@@ -85,8 +98,9 @@ function ProductFormPage() {
                         placeholder="Name"
                     />
                 </label>
-                <label>SKU
+                <label className="block mt-4 font-medium">SKU
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="sku"
                         value={formData.sku}
@@ -98,8 +112,9 @@ function ProductFormPage() {
                     />
                 </label>
                 {categories.map(cat => (
-                    <label key={cat._id}>Category
+                    <label className="block mt-4 font-medium" key={cat._id}>Category
                         <input
+                            className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                             type="checkbox"
                             name="category"
                             value={cat._id}
@@ -116,8 +131,9 @@ function ProductFormPage() {
                         {cat.name}
                     </label>
                 ))}
-                <label>Unit
+                <label className="block mt-4 font-medium">Unit
                     <select
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         name="unit"
                         value={formData.unit}
                         onChange={(event) => {
@@ -130,8 +146,9 @@ function ProductFormPage() {
                         ))}
                     </select>
                 </label>
-                <label>Description
+                <label className="block mt-4 font-medium">Description
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="description"
                         value={formData.description}
@@ -142,8 +159,9 @@ function ProductFormPage() {
                         placeholder="Description"
                     />
                 </label>
-                <label>Net price
+                <label className="block mt-4 font-medium">Net price
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="netPrice"
                         value={formData.netPrice}
@@ -154,8 +172,9 @@ function ProductFormPage() {
                         placeholder="Net price"
                     />
                 </label>
-                <label>Gross price
+                <label className="block mt-4 font-medium">Gross price
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="grossPrice"
                         value={formData.grossPrice}
@@ -166,8 +185,9 @@ function ProductFormPage() {
                         placeholder="Gross price"
                     />
                 </label>
-                <label>VAT rate
+                <label className="block mt-4 font-medium">VAT rate
                     <input
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         type="text"
                         name="vatRate"
                         value={formData.vatRate}
@@ -178,8 +198,9 @@ function ProductFormPage() {
                         placeholder="VAT rate"
                     />
                 </label>
-                <label>Active
+                <label className="block mt-4 font-medium">Active
                     <select
+                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                         name="active"
                         value={formData.active.toString()}
                         onChange={(event) => {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import type { LoginRequest, LoginResponse } from "../types/auth";
 import { AxiosError } from "axios";
-import { useAuth} from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * Login page component
@@ -16,8 +16,11 @@ function LoginPage() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-
-    const handleSubmit = async (event: React.FormEvent) => {
+    /**
+     * Handle form submission
+     * @param event Form submission event
+     */
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(username, password);
         const loginRequest: LoginRequest = {
@@ -30,8 +33,6 @@ function LoginPage() {
             if (loginResponse.status !== 200) {
                 throw new Error('Login failed');
             }
-
-
 
             if (loginResponse.data.login) {
                 login(loginResponse.data.login);
@@ -58,6 +59,7 @@ function LoginPage() {
             <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                 <input
+                    className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                     type="text"
                     value={username}
                     onChange={(event) => {
@@ -67,6 +69,7 @@ function LoginPage() {
                     placeholder="Username"
                 />
                 <input
+                    className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                     type="password"
                     value={password}
                     onChange={(event) => {
