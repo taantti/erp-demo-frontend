@@ -8,9 +8,9 @@
  */
 function DashboardPage() {
     return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-            <p className="text-gray-600 mt-2">Welcome to ERP-Demo</p>
+        <div className="p-4">
+            <h1 className="fs-4 fw-bold">Dashboard</h1>
+            <p className="text-muted mt-2">Welcome to ERP-Demo</p>
         </div>
     );
 };

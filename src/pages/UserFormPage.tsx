@@ -78,13 +78,13 @@ function UserFormPage() {
     }
 
     return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold">User form</h1>
-            <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                <label className="block mt-4 font-medium">Username
+        <div className="p-4">
+            <h1 className="fs-4 fw-bold">User form</h1>
+            <form className="bg-white rounded shadow p-4" onSubmit={handleSubmit}>
+                {error && <p className="text-danger small mt-2">{error}</p>}
+                <label className="form-label mt-3 fw-medium">Username
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="username"
                         value={formData.username}
@@ -96,9 +96,9 @@ function UserFormPage() {
                     />
                 </label>
                 {!userId && (
-                    <label className="block mt-4 font-medium">Password
+                    <label className="form-label mt-3 fw-medium">Password
                         <input
-                            className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                            className="form-control mt-1"
                             type="password"
                             name="password"
                             value={formData.password}
@@ -110,9 +110,9 @@ function UserFormPage() {
                         />
                     </label>
                 )}
-                <label className="block mt-4 font-medium">First name(s)
+                <label className="form-label mt-3 fw-medium">First name(s)
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="first_name"
                         value={formData.first_name}
@@ -123,9 +123,9 @@ function UserFormPage() {
                         placeholder="First name"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Last name
+                <label className="form-label mt-3 fw-medium">Last name
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="last_name"
                         value={formData.last_name}
@@ -136,9 +136,9 @@ function UserFormPage() {
                         placeholder="Last name"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Email
+                <label className="form-label mt-3 fw-medium">Email
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="email"
                         value={formData.email}
@@ -149,9 +149,9 @@ function UserFormPage() {
                         placeholder="Email"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Role
+                <label className="form-label mt-3 fw-medium">Role
                     <select
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-select mt-1"
                         name="role"
                         value={formData.role}
                         onChange={(event) => {
@@ -164,9 +164,9 @@ function UserFormPage() {
                         ))}
                     </select>
                 </label>
-                <label className="block mt-4 font-medium">Active
+                <label className="form-label mt-3 fw-medium">Active
                     <select
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-select mt-1"
                         name="active"
                         value={formData.active.toString()}
                         onChange={(event) => {
@@ -178,7 +178,7 @@ function UserFormPage() {
                         <option value="false">No</option>
                     </select>
                 </label>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                <button type="submit" className="btn btn-primary mt-3">Save</button>
             </form>
         </div>
     );

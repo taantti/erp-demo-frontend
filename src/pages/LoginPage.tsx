@@ -54,12 +54,12 @@ function LoginPage() {
      * @returns Login page
      */
     return (
-        <div className="flex items-center justify-center flex-1">
-            <h1 className="text-2xl font-bold">Login</h1>
-            <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="d-flex align-items-center justify-content-center flex-grow-1">
+            <h1 className="fs-4 fw-bold">Login</h1>
+            <form className="bg-white rounded shadow p-4" onSubmit={handleSubmit}>
+                {error && <p className="text-danger small mt-2">{error}</p>}
                 <input
-                    className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                    className="form-control mt-2"
                     type="text"
                     value={username}
                     onChange={(event) => {
@@ -69,7 +69,7 @@ function LoginPage() {
                     placeholder="Username"
                 />
                 <input
-                    className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                    className="form-control mt-2"
                     type="password"
                     value={password}
                     onChange={(event) => {
@@ -78,7 +78,7 @@ function LoginPage() {
                     }}
                     placeholder="Password"
                 />
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
+                <button type="submit" className="btn btn-primary mt-3">Login</button>
             </form>
         </div>
     )

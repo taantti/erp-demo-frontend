@@ -37,37 +37,39 @@ function ProductCategoriesPage() {
     }, []);
 
     return (
-        <div className="p-8">
-            <ul>
-                {userData?.rolePermission?.productCategory?.createProductCategory?.access && (
-                    <li><Link to="/products/categories/new">New product category</Link></li>
-                )}
-            </ul>
-            <table className="mt-4 w-full text-left border-collapse">
+        <div className="p-4">
+
+            {userData?.rolePermission?.productCategory?.createProductCategory?.access && (
+                <Link to="/products/categories/new" className="btn btn-primary mb-3">New product category</Link>
+            )}
+
+            <table className="table table-bordered table-striped mt-3">
                 <thead>
                     <tr>
-                        <th className="border border-gray-300 px-4 py-2">Name</th>
-                        <th className="border border-gray-300 px-4 py-2">Slug</th>
-                        <th className="border border-gray-300 px-4 py-2">Description</th>
-                        <th className="border border-gray-300 px-4 py-2">Active</th>
-                        <th className="border border-gray-300 px-4 py-2">&nbsp;</th>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th>Description</th>
+                        <th>Active</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {categories.map((category) => (
                         <tr key={category._id}>
-                            <td className="border border-gray-300 px-4 py-2">{category.name}</td>
-                            <td className="border border-gray-300 px-4 py-2">{category.slug}</td>
-                            <td className="border border-gray-300 px-4 py-2">{category.description}</td>
-                            <td className="border border-gray-300 px-4 py-2">{category.active ? "Yes" : "No"}</td>
-                            <td className="border border-gray-300 px-4 py-2">
+                            <td>{category.name}</td>
+                            <td>{category.slug}</td>
+                            <td>{category.description}</td>
+                            <td>{category.active ? "Yes" : "No"}</td>
+                            <td>
                                 {userData?.rolePermission?.productCategory?.updateProductCategory?.access && (
-                                    <Link to={`/products/categories/${category._id}/edit`}>
-                                        Edit <img src="/edit.png" alt="Edit" />
+                                    <Link to={`/products/categories/${category._id}/edit`} className="btn btn-sm btn-outline-primary">
+                                        <i className="bi bi-pencil"></i>
                                     </Link>
                                 )}
                                 {userData?.rolePermission?.productCategory?.deleteProductCategory?.access && (
-                                    <button onClick={() => handleDelete(category._id)}>Delete</button>
+                                    <button onClick={() => handleDelete(category._id)} className="btn btn-danger btn-sm">
+                                        <i className="bi bi-trash"></i>
+                                    </button>
                                 )}
                             </td>
                         </tr>

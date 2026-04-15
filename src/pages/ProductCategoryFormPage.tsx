@@ -55,13 +55,13 @@ function ProductCategoryFormPage() {
     }
 
     return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold">Product category form</h1>
-            <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                <label className="block mt-4 font-medium">Name
+        <div className="p-4">
+            <h1 className="fs-4 fw-bold">Product category form</h1>
+            <form className="bg-white rounded shadow p-4" onSubmit={handleSubmit}>
+                {error && <p className="text-danger small mt-2">{error}</p>}
+                <label className="form-label mt-3 fw-medium">Name
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="name"
                         value={formData.name}
@@ -72,9 +72,9 @@ function ProductCategoryFormPage() {
                         placeholder="Name"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Slug
+                <label className="form-label mt-3 fw-medium">Slug
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="slug"
                         value={formData.slug}
@@ -85,9 +85,9 @@ function ProductCategoryFormPage() {
                         placeholder="Slug"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Description
+                <label className="form-label mt-3 fw-medium">Description
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="description"
                         value={formData.description}
@@ -98,9 +98,9 @@ function ProductCategoryFormPage() {
                         placeholder="Description"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Active
+                <label className="form-label mt-3 fw-medium">Active
                     <select
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-select mt-1"
                         name="active"
                         value={formData.active.toString()}
                         onChange={(event) => {
@@ -112,7 +112,7 @@ function ProductCategoryFormPage() {
                         <option value="false">No</option>
                     </select>
                 </label>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                <button type="submit" className="btn btn-primary mt-3">Save</button>
             </form>
         </div>
     );

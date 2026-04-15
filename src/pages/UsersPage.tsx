@@ -37,41 +37,39 @@ function UsersPage() {
     }, []);
 
     return (
-        <div className="p-8">
-            <ul>
-                {userData?.rolePermission?.user?.createUser?.access && (
-                    <li><Link to="/users/new">New user</Link></li>
-                )}
-            </ul>
-            <table className="mt-4 w-full text-left border-collapse">
+        <div className="p-4">
+
+            {userData?.rolePermission?.user?.createUser?.access && (
+                <Link to="/users/new" className="btn btn-primary mb-3">New user</Link>
+            )}
+
+            <table className="table table-bordered table-striped mt-3">
                 <thead>
                     <tr>
-                        <th className="border border-gray-300 px-4 py-2">Username</th>
-                        <th className="border border-gray-300 px-4 py-2">First name(s)</th>
-                        <th className="border border-gray-300 px-4 py-2">Last name</th>
-                        <th className="border border-gray-300 px-4 py-2">Email</th>
-                        <th className="border border-gray-300 px-4 py-2">Role</th>
-                        <th className="border border-gray-300 px-4 py-2">Active</th>
-                        <th className="border border-gray-300 px-4 py-2">&nbsp;</th>
+                        <th>Username</th>
+                        <th>First name(s)</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Active</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users.map((user) => (
                         <tr key={user._id}>
-                            <td className="border border-gray-300 px-4 py-2">{user.username}</td>
-                            <td className="border border-gray-300 px-4 py-2">{user.first_name}</td>
-                            <td className="border border-gray-300 px-4 py-2">{user.last_name}</td>
-                            <td className="border border-gray-300 px-4 py-2">{user.email}</td>
-                            <td className="border border-gray-300 px-4 py-2">{user.role}</td>
-                            <td className="border border-gray-300 px-4 py-2">{user.active ? "Yes" : "No"}</td>
-                            <td className="border border-gray-300 px-4 py-2">
+                            <td>{user.username}</td>
+                            <td>{user.first_name}</td>
+                            <td>{user.last_name}</td>
+                            <td>{user.email}</td>
+                            <td>{user.role}</td>
+                            <td>{user.active ? "Yes" : "No"}</td>
+                            <td>
                                 {userData?.rolePermission?.user?.updateUser?.access && (
-                                    <Link to={`/users/${user._id}/edit`}>
-                                        Edit <img src="/edit.png" alt="Edit" />
-                                    </Link>
+                                    <Link to={`/users/${user._id}/edit`} className="btn btn-warning btn-sm me-2"><i className="bi bi-pencil"></i> Edit</Link>
                                 )}
                                 {userData?.rolePermission?.user?.deleteUser?.access && (
-                                    <button onClick={() => handleDelete(user._id)}>Delete</button>
+                                    <button onClick={() => handleDelete(user._id)} className="btn btn-danger btn-sm"><i className="bi bi-trash"></i> Delete</button>
                                 )}
                             </td>
                         </tr>

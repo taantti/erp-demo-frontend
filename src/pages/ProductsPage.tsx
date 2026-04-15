@@ -37,45 +37,40 @@ function ProductsPage() {
     }, []);
 
     return (
-        <div className="p-8">
-            <ul>
-                {userData?.rolePermission?.product?.createProduct?.access && (
-                    <li><Link to="/products/new">New Product</Link></li>
-                )}
-            </ul>
-            <table className="mt-4 w-full text-left border-collapse">
+        <div className="p-4">
+            {userData?.rolePermission?.product?.createProduct?.access && (
+                <Link to="/products/new" className="btn btn-primary mb-3">New Product</Link>
+            )}
+            <table className="table table-bordered table-striped mt-3">
                 <thead>
                     <tr>
-                        <th className="border border-gray-300 px-4 py-2">Name</th>
-                        <th className="border border-gray-300 px-4 py-2">SKU</th>
-                        <th className="border border-gray-300 px-4 py-2">Unit</th>
-                        <th className="border border-gray-300 px-4 py-2">Net Price</th>
-                        <th className="border border-gray-300 px-4 py-2">Gross Price</th>
-                        <th className="border border-gray-300 px-4 py-2">VAT Rate</th>
-                        <th className="border border-gray-300 px-4 py-2">Active</th>
-                        <th className="border border-gray-300 px-4 py-2">&nbsp;</th>
+                        <th>Name</th>
+                        <th>SKU</th>
+                        <th>Unit</th>
+                        <th>Net Price</th>
+                        <th>Gross Price</th>
+                        <th>VAT Rate</th>
+                        <th>Active</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((product) => (
                         <tr key={product._id}>
-                            <td className="border border-gray-300 px-4 py-2">{product.name}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.sku}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.unit}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.netPrice}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.grossPrice}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.vatRate}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.active ? "Yes" : "No"}</td>
-                            <td className="border border-gray-300 px-4 py-2">
+                            <td>{product.name}</td>
+                            <td>{product.sku}</td>
+                            <td>{product.unit}</td>
+                            <td>{product.netPrice}</td>
+                            <td>{product.grossPrice}</td>
+                            <td>{product.vatRate}</td>
+                            <td>{product.active ? "Yes" : "No"}</td>
+                            <td>
                                 {userData?.rolePermission?.product?.updateProduct?.access && (
-                                    <Link to={`/products/${product._id}/edit`}>
-                                        Edit <img src="/edit.png" alt="Edit" />
-                                    </Link>
+                                    <Link to={`/products/${product._id}/edit`} className="btn btn-warning btn-sm me-2"><i className="bi bi-pencil"></i> Edit</Link>
                                 )}
                                 {userData?.rolePermission?.product?.deleteProduct?.access && (
-                                    <button onClick={() => handleDelete(product._id)}>Delete</button>
+                                    <button onClick={() => handleDelete(product._id)} className="btn btn-danger btn-sm"><i className="bi bi-trash"></i> Delete</button>
                                 )}
-
                             </td>
                         </tr>
                     ))}

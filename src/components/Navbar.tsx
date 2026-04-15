@@ -1,6 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 /**
  * Navigation bar component
@@ -9,7 +10,6 @@ import { useState } from "react";
 const NavBar = () => {
     const { logout, userData } = useAuth();
     const navigate = useNavigate();
-    const [menuOpen, setMenuOpen] = useState(false);
 
     /**
      * Handle logout
@@ -20,35 +20,40 @@ const NavBar = () => {
     }
 
     return (
-        <nav className="bg-white p-4 shadow-sm w-full">
-            <div className="flex items-center justify-between">
-            <button
-                className="md:hidden"
-                onClick={() => setMenuOpen(!menuOpen)}
-            >
-                ☰
-            </button>
-            </div>
-            <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row gap-4 mt-2 md:mt-0`}>
-                <NavLink to="/">Dashboard</NavLink>
-
-                {userData?.rolePermission?.product?.readProducts?.access && (
-                    <NavLink to="/products">Products</NavLink>
-                )}
-                {userData?.rolePermission?.productCategory?.readProductCategories?.access && (
-                    <NavLink to="/products/categories">Product Categories</NavLink>
-                )}
-                {userData?.rolePermission?.user?.readUsers?.access && (
-                    <NavLink to="/users">Users</NavLink>
-                )}
-
-<button onClick={handleLogout} className="bg-transparent border-none p-0 m-0 cursor-pointer font-[inherit] text-[inherit] text-left">
-    Logout
-</button>
-                <span className="text-gray-600">{userData?.user_first_name} {userData?.user_last_name}</span>
-            </div>
-        </nav>
-    )
+        <Navbar bg="white" expand="md" className="shadow-sm">
+            <Container fluid>
+                <Navbar.Toggle aria-controls="main-nav" />
+                <Navbar.Collapse id="main-nav">
+                    <Nav className="me-auto">
+                        <LinkContainer to="/">
+                            <Nav.Link>Dashboard</Nav.Link>
+                        </LinkContainer>
+                        {userData?.rolePermission?.product?.readProducts?.access && (
+                            <LinkContainer to="/products">
+                                <Nav.Link>Products</Nav.Link>
+                            </LinkContainer>
+                        )}
+                        {userData?.rolePermission?.productCategory?.readProductCategories?.access && (
+                            <LinkContainer to="/products/categories">
+                                <Nav.Link>Product Categories</Nav.Link>
+                            </LinkContainer>
+                        )}
+                        {userData?.rolePermission?.user?.readUsers?.access && (
+                            <LinkContainer to="/users">
+                                <Nav.Link>Users</Nav.Link>
+                            </LinkContainer>
+                        )}
+                    </Nav>
+                    <Nav>
+                        <span className="navbar-text me-3">
+                            {userData?.user_first_name} {userData?.user_last_name}
+                        </span>
+                        <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
 }
 
 export default NavBar;

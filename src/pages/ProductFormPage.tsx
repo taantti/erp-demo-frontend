@@ -81,13 +81,13 @@ function ProductFormPage() {
     }
 
     return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold">Product form</h1>
-            <form className="bg-white rounded-lg shadow-md p-8" onSubmit={handleSubmit}>
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                <label className="block mt-4 font-medium">Name
+        <div className="p-4">
+            <h1 className="fs-4 fw-bold">Product form</h1>
+            <form className="bg-white rounded shadow p-4" onSubmit={handleSubmit}>
+                {error && <p className="text-danger small mt-2">{error}</p>}
+                <label className="form-label mt-3 fw-medium">Name
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="name"
                         value={formData.name}
@@ -98,9 +98,9 @@ function ProductFormPage() {
                         placeholder="Name"
                     />
                 </label>
-                <label className="block mt-4 font-medium">SKU
+                <label className="form-label mt-3 fw-medium">SKU
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="sku"
                         value={formData.sku}
@@ -112,9 +112,9 @@ function ProductFormPage() {
                     />
                 </label>
                 {categories.map(cat => (
-                    <label className="block mt-4 font-medium" key={cat._id}>Category
+                    <label className="form-check mt-3" key={cat._id}>Category
                         <input
-                            className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                            className="form-check-input"
                             type="checkbox"
                             name="category"
                             value={cat._id}
@@ -131,9 +131,9 @@ function ProductFormPage() {
                         {cat.name}
                     </label>
                 ))}
-                <label className="block mt-4 font-medium">Unit
+                <label className="form-label mt-3 fw-medium">Unit
                     <select
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-select mt-1"
                         name="unit"
                         value={formData.unit}
                         onChange={(event) => {
@@ -146,9 +146,9 @@ function ProductFormPage() {
                         ))}
                     </select>
                 </label>
-                <label className="block mt-4 font-medium">Description
+                <label className="form-label mt-3 fw-medium">Description
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="description"
                         value={formData.description}
@@ -159,9 +159,9 @@ function ProductFormPage() {
                         placeholder="Description"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Net price
+                <label className="form-label mt-3 fw-medium">Net price
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="netPrice"
                         value={formData.netPrice}
@@ -172,9 +172,9 @@ function ProductFormPage() {
                         placeholder="Net price"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Gross price
+                <label className="form-label mt-3 fw-medium">Gross price
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="grossPrice"
                         value={formData.grossPrice}
@@ -185,9 +185,9 @@ function ProductFormPage() {
                         placeholder="Gross price"
                     />
                 </label>
-                <label className="block mt-4 font-medium">VAT rate
+                <label className="form-label mt-3 fw-medium">VAT rate
                     <input
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-control mt-1"
                         type="text"
                         name="vatRate"
                         value={formData.vatRate}
@@ -198,9 +198,9 @@ function ProductFormPage() {
                         placeholder="VAT rate"
                     />
                 </label>
-                <label className="block mt-4 font-medium">Active
+                <label className="form-label mt-3 fw-medium">Active
                     <select
-                        className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                        className="form-select mt-1"
                         name="active"
                         value={formData.active.toString()}
                         onChange={(event) => {
@@ -212,7 +212,7 @@ function ProductFormPage() {
                         <option value="false">No</option>
                     </select>
                 </label>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                <button type="submit" className="btn btn-primary mt-3">Save</button>
             </form>
         </div>
     );

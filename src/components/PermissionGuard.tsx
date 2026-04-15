@@ -23,16 +23,16 @@ const PermissionGuard = ({ module, feature, children }: PermissionGuardProps) =>
     if (feature) {
         if (!userData?.rolePermission?.[module]?.[feature]?.access) {
             return (
-                <div className="p-8">
-                    <p className="text-red-500">You do not have permission to access {module}-module {feature}-feature.</p>
+                <div className="p-4">
+                    <p className="text-danger">You do not have permission to access {module}-module {feature}-feature.</p>
                 </div>
             );
         }
     } else {
         if (!userData?.rolePermission?.[module]) {
             return (
-                <div className="p-8">
-                    <p className="text-red-500">You do not have permission to access {module}-module.</p>
+                <div className="p-4">
+                    <p className="text-danger">You do not have permission to access {module}-module.</p>
                 </div>
             );
         }

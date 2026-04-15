@@ -34,7 +34,7 @@ const AppLayout = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="d-flex flex-column min-vh-100 bg-light">
       {isAuthenticated && <NavBar />}
       <Routes>
         <Route path="/" element={
