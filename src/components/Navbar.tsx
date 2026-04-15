@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 /**
@@ -28,37 +28,61 @@ const NavBar = () => {
                         <LinkContainer to="/">
                             <Nav.Link>Dashboard</Nav.Link>
                         </LinkContainer>
-                        {userData?.rolePermission?.product?.readProducts?.access && (
-                            <LinkContainer to="/products">
-                                <Nav.Link>Products</Nav.Link>
-                            </LinkContainer>
+
+
+                        {(userData?.rolePermission?.product?.readProducts?.access || userData?.rolePermission?.productCategory?.readProductCategories?.access) && (
+                            <NavDropdown title="Product" id="products-dropdown">
+                                {userData?.rolePermission?.product?.readProducts?.access && (
+                                    <LinkContainer to="/products">
+                                        <NavDropdown.Item>Products</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                                {userData?.rolePermission?.productCategory?.readProductCategories?.access && (
+                                    <LinkContainer to="/products/categories">
+                                        <NavDropdown.Item>Categories</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                            </NavDropdown>
                         )}
-                        {userData?.rolePermission?.productCategory?.readProductCategories?.access && (
-                            <LinkContainer to="/products/categories">
-                                <Nav.Link>Product Categories</Nav.Link>
-                            </LinkContainer>
-                        )}
+
+
+
                         {userData?.rolePermission?.user?.readUsers?.access && (
-                            <LinkContainer to="/users">
-                                <Nav.Link>Users</Nav.Link>
-                            </LinkContainer>
+                            <NavDropdown title="User" id="user-dropdown">
+                                {userData?.rolePermission?.user?.readUsers?.access && (
+                                    <LinkContainer to="/users">
+                                        <NavDropdown.Item>Users</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                            </NavDropdown>
                         )}
-                        {userData?.rolePermission?.stock?.readStocks?.access && (
-                            <LinkContainer to="/stocks">
-                                <Nav.Link>Stocks</Nav.Link>
-                            </LinkContainer>
-                        )}
-                        {userData?.rolePermission?.stock?.readShelves?.access && (
-                            <LinkContainer to="/stocks/shelves">
-                                <Nav.Link>Stock shelves</Nav.Link>
-                            </LinkContainer>
+
+
+
+
+
+
+
+                        {(userData?.rolePermission?.stock?.readStocks?.access || userData?.rolePermission?.stock?.readShelves?.access) && (
+                            <NavDropdown title="Stock" id="stock-dropdown">
+                                {userData?.rolePermission?.stock?.readStocks?.access && (
+                                    <LinkContainer to="/stocks">
+                                        <NavDropdown.Item>Stocks</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                                {userData?.rolePermission?.stock?.readShelves?.access && (
+                                    <LinkContainer to="/stocks/shelves">
+                                        <NavDropdown.Item>Shelves</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                            </NavDropdown>
                         )}
                     </Nav>
                     <Nav>
                         <span className="navbar-text me-3">
                             {userData?.user_first_name} {userData?.user_last_name}
                         </span>
-                        <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                        <Nav.Link onClick={handleLogout}><i className="bi bi-box-arrow-right"></i></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
