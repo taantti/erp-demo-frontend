@@ -7,7 +7,9 @@ React + TypeScript frontend for the ERP Demo Backend API.
 - **React** — UI framework
 - **TypeScript** — type safety
 - **Vite** — build tool & dev server
-- **TailwindCSS** — utility-first styling
+- **Bootstrap** — responsive CSS framework
+- **React Bootstrap** — Bootstrap components for React
+- **Bootstrap Icons** — icon library
 - **React Router** — client-side routing
 - **Axios** — HTTP client
 
@@ -16,13 +18,13 @@ React + TypeScript frontend for the ERP Demo Backend API.
 ```
 src/
 ├── api/            # Axios instance & interceptors
-├── components/     # Shared UI components (ProtectedRoute)
+├── components/     # Shared UI components (ProtectedRoute, PermissionGuard, Navbar)
 ├── context/        # React Context providers (AuthContext)
 ├── pages/          # Page components (LoginPage, DashboardPage)
 ├── types/          # TypeScript interfaces
 ├── App.tsx         # Root component with routing
 ├── main.tsx        # Entry point
-└── index.css       # TailwindCSS imports
+└── index.css       # Custom styles
 ```
 
 ## Getting Started
@@ -43,6 +45,10 @@ src/
 - Auth context for centralized token management
 - Protected routes (redirect to login if unauthenticated)
 - Axios interceptor for automatic Bearer token injection
+- Role-based permission guards (PermissionGuard)
+- Permission-based navigation links
+- Responsive navbar with hamburger menu
+- CRUD operations for Products, Product Categories, and Users
 
 ## Related
 
