@@ -48,7 +48,7 @@ src/
 - Role-based permission guards (PermissionGuard)
 - Permission-based navigation links
 - Responsive navbar with hamburger menu
-- CRUD operations for Products, Product Categories, and Users
+- CRUD operations for Products, Product Categories, Users, Stocks, and Shelves
 
 ## Related
 

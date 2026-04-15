@@ -11,6 +11,10 @@ import ProductCategoriesPage from "./pages/ProductCategoriesPage";
 import ProductCategoryFormPage from "./pages/ProductCategoryFormPage";
 import UsersPage from "./pages/UsersPage";
 import UserFormPage from "./pages/UserFormPage";
+import StocksPage from "./pages/StocksPage";
+import StockFormPage from "./pages/StockFormPage";
+import StockShelvesPage from "./pages/StockShelvesPage";
+import StockShelfFormPage from "./pages/StockShelfFormPage";
 
 /**
  * Main application component
@@ -45,63 +49,105 @@ const AppLayout = () => {
         <Route path="/products" element={
           <ProtectedRoute>
             <PermissionGuard module="product" feature="readProducts">
-            <ProductsPage />
+              <ProductsPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/new" element={
           <ProtectedRoute>
             <PermissionGuard module="product" feature="createProduct">
-            <ProductFormPage />
+              <ProductFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/:id/edit" element={
           <ProtectedRoute>
             <PermissionGuard module="product" feature="updateProduct">
-            <ProductFormPage />
+              <ProductFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/categories" element={
           <ProtectedRoute>
             <PermissionGuard module="productCategory" feature="readProductCategories">
-            <ProductCategoriesPage />
+              <ProductCategoriesPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/categories/new" element={
           <ProtectedRoute>
             <PermissionGuard module="productCategory" feature="createProductCategory">
-            <ProductCategoryFormPage />
+              <ProductCategoryFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products/categories/:id/edit" element={
           <ProtectedRoute>
             <PermissionGuard module="productCategory" feature="updateProductCategory">
-            <ProductCategoryFormPage />
+              <ProductCategoryFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/users" element={
           <ProtectedRoute>
             <PermissionGuard module="user" feature="readUsers">
-            <UsersPage />
+              <UsersPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/users/new" element={
           <ProtectedRoute>
             <PermissionGuard module="user" feature="createUser">
-            <UserFormPage />
+              <UserFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/users/:id/edit" element={
           <ProtectedRoute>
             <PermissionGuard module="user" feature="updateUser">
-            <UserFormPage />
+              <UserFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/stocks" element={
+          <ProtectedRoute>
+            <PermissionGuard module="stock" feature="readStocks">
+              <StocksPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/stocks/new" element={
+          <ProtectedRoute>
+            <PermissionGuard module="stock" feature="createStock">
+              <StockFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/stocks/:id/edit" element={
+          <ProtectedRoute>
+            <PermissionGuard module="stock" feature="updateStock">
+              <StockFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/stocks/shelves" element={
+          <ProtectedRoute>
+            <PermissionGuard module="stock" feature="readShelves">
+              <StockShelvesPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/stocks/shelves/new" element={
+          <ProtectedRoute>
+            <PermissionGuard module="stock" feature="createShelf">
+              <StockShelfFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/stocks/shelves/:id/edit" element={
+          <ProtectedRoute>
+            <PermissionGuard module="stock" feature="updateShelf">
+              <StockShelfFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />

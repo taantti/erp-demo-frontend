@@ -43,6 +43,16 @@ const NavBar = () => {
                                 <Nav.Link>Users</Nav.Link>
                             </LinkContainer>
                         )}
+                        {userData?.rolePermission?.stock?.readStocks?.access && (
+                            <LinkContainer to="/stocks">
+                                <Nav.Link>Stocks</Nav.Link>
+                            </LinkContainer>
+                        )}
+                        {userData?.rolePermission?.stock?.readShelves?.access && (
+                            <LinkContainer to="/stocks/shelves">
+                                <Nav.Link>Stock shelves</Nav.Link>
+                            </LinkContainer>
+                        )}
                     </Nav>
                     <Nav>
                         <span className="navbar-text me-3">
