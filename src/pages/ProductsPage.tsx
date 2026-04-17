@@ -3,6 +3,7 @@ import api from "../api/axios";
 import type { Product } from "../types/product";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import PaginationComponent from "../components/Pagination";
 
 /**
  * Products page component
@@ -12,6 +13,8 @@ function ProductsPage() {
 
     const [products, setProducts] = useState<Product[]>([]); // Array of products from the API
     const { userData } = useAuth(); // Get the current user from the auth context
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     // Handle delete product
     const handleDelete = async (productId: string) => {
@@ -20,6 +23,7 @@ function ProductsPage() {
         try {
             await api.delete(`/product/${productId}`);
             setProducts(products.filter((product) => product._id !== productId)); // Remove the deleted product from the list
+            setCurrentPage(1);
         } catch (error) {
             console.log("Error deleting product:", error);
         }
@@ -35,6 +39,12 @@ function ProductsPage() {
                 console.log("Error data:", err.response?.data);
             });
     }, []);
+
+    const totalPages = Math.ceil(products.length / itemsPerPage);
+    const paginatedProducts = products.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div className="p-4">
@@ -55,7 +65,7 @@ function ProductsPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => (
+                    {paginatedProducts.map((product) => (
                         <tr key={product._id}>
                             <td>{product.name}</td>
                             <td>{product.sku}</td>
@@ -76,6 +86,11 @@ function ProductsPage() {
                     ))}
                 </tbody>
             </table>
+            <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 };

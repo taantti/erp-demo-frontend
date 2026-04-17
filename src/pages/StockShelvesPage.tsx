@@ -4,6 +4,7 @@ import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import type { StockShelf } from "../types/stockShelf";
 import type { Stock } from "../types/stock";
+import PaginationComponent from "../components/Pagination";
 
 /**
  * Stock shelves page component
@@ -13,10 +14,18 @@ function StockShelvesPage() {
     const [shelves, setShelves] = useState<StockShelf[]>([]);
     const [stocks, setStocks] = useState<Stock[]>([]);
     const { userData } = useAuth();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     const handleDelete = async (id: string) => {
-        await api.delete(`/stock/shelf/${id}`);
-        setShelves(shelves.filter(s => s._id !== id));
+        if (!confirm("Are you sure you want to delete this shelf?")) return;
+        try {
+            await api.delete(`/stock/shelf/${id}`);
+            setShelves(shelves.filter(s => s._id !== id));
+            setCurrentPage(1);
+        } catch (error) {
+            console.log("Error deleting shelf:", error);
+        }
     };
 
     useEffect(() => {
@@ -29,6 +38,12 @@ function StockShelvesPage() {
     const getStockName = (stockId: string) => {
         return stocks.find(s => s._id === stockId)?.name || stockId;
     };
+
+    const totalPages = Math.ceil(shelves.length / itemsPerPage);
+    const paginatedShelves = shelves.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div className="p-4">
@@ -48,7 +63,7 @@ function StockShelvesPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {shelves.map((shelf) => (
+                    {paginatedShelves.map((shelf) => (
                         <tr key={shelf._id}>
                             <td>{shelf.name}</td>
                             <td>{shelf.code}</td>
@@ -72,6 +87,11 @@ function StockShelvesPage() {
                     ))}
                 </tbody>
             </table>
+            <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 }

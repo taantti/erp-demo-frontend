@@ -3,6 +3,7 @@ import api from "../api/axios";
 import type { User } from "../types/user";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import PaginationComponent from "../components/Pagination";
 
 /**
  * Users page component
@@ -12,6 +13,8 @@ function UsersPage() {
 
     const [users, setUsers] = useState<User[]>([]); // Array of users from the API
     const { userData } = useAuth(); // Get the current user from the auth context
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     // Handle delete user
     const handleDelete = async (userId: string) => {
@@ -20,6 +23,7 @@ function UsersPage() {
         try {
             await api.delete(`/user/${userId}`);
             setUsers(users.filter((user) => user._id !== userId)); // Remove the deleted user from the list
+            setCurrentPage(1);
         } catch (error) {
             console.log("Error deleting user:", error);
         }
@@ -35,6 +39,12 @@ function UsersPage() {
                 console.log("Error data:", err.response?.data);
             });
     }, []);
+
+    const totalPages = Math.ceil(users.length / itemsPerPage);
+    const paginatedUsers = users.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div className="p-4">
@@ -56,7 +66,7 @@ function UsersPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => (
+                    {paginatedUsers.map((user) => (
                         <tr key={user._id}>
                             <td>{user.username}</td>
                             <td>{user.first_name}</td>
@@ -76,6 +86,11 @@ function UsersPage() {
                     ))}
                 </tbody>
             </table>
+            <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 };

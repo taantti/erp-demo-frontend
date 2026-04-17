@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import type { Stock } from "../types/stock";
+import PaginationComponent from "../components/Pagination";
 
 /**
  * Stocks page component
@@ -11,16 +12,30 @@ import type { Stock } from "../types/stock";
 function StocksPage() {
     const [stocks, setStocks] = useState<Stock[]>([]);
     const { userData } = useAuth();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     const handleDelete = async (id: string) => {
-        await api.delete(`/stock/${id}`);
-        setStocks(stocks.filter(s => s._id !== id));
+        if (!confirm("Are you sure you want to delete this stock?")) return;
+        try {
+            await api.delete(`/stock/${id}`);
+            setStocks(stocks.filter(s => s._id !== id));
+            setCurrentPage(1);
+        } catch (error) {
+            console.log("Error deleting stock:", error);
+        }
     };
 
     useEffect(() => {
         api.get<Stock[]>("/stock")
             .then(response => setStocks(response.data));
     }, []);
+
+    const totalPages = Math.ceil(stocks.length / itemsPerPage);
+    const paginatedStocks = stocks.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div className="p-4">
@@ -38,7 +53,7 @@ function StocksPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {stocks.map((stock) => (
+                    {paginatedStocks.map((stock) => (
                         <tr key={stock._id}>
                             <td>{stock.name}</td>
                             <td>{stock.location?.city}</td>
@@ -60,6 +75,11 @@ function StocksPage() {
                     ))}
                 </tbody>
             </table>
+            <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 }

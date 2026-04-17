@@ -3,6 +3,7 @@ import api from "../api/axios";
 import type { ProductCategory } from "../types/productCategory";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import PaginationComponent from "../components/Pagination";
 
 /**
  * Product categories page component
@@ -12,6 +13,8 @@ function ProductCategoriesPage() {
 
     const [categories, setCategories] = useState<ProductCategory[]>([]); // Array of product categories from the API
     const { userData } = useAuth(); // Get the current user from the auth context
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     // Handle delete product category
     const handleDelete = async (categoryId: string) => {
@@ -20,6 +23,7 @@ function ProductCategoriesPage() {
         try {
             await api.delete(`/product/category/${categoryId}`);
             setCategories(categories.filter((category) => category._id !== categoryId)); // Remove the deleted product category from the list
+            setCurrentPage(1);
         } catch (error) {
             console.log("Error deleting product category:", error);
         }
@@ -35,6 +39,12 @@ function ProductCategoriesPage() {
                 console.log("Error data:", err.response?.data);
             });
     }, []);
+
+    const totalPages = Math.ceil(categories.length / itemsPerPage);
+    const paginatedCategories = categories.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div className="p-4">
@@ -54,7 +64,7 @@ function ProductCategoriesPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories.map((category) => (
+                    {paginatedCategories.map((category) => (
                         <tr key={category._id}>
                             <td>{category.name}</td>
                             <td>{category.slug}</td>
@@ -76,6 +86,11 @@ function ProductCategoriesPage() {
                     ))}
                 </tbody>
             </table>
+            <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 };
