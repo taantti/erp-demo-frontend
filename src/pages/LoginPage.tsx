@@ -10,7 +10,7 @@ import { useAuth } from "../context/AuthContext";
  * @returns Login page
  */
 function LoginPage() {
-    const [username, setUsername] = useState<string>(""); // Mitä <string> tekee? Paluu arvon tyyppi vai parametrin tyyppi? 
+    const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ function LoginPage() {
         }
 
         try {
-            const loginResponse = await api.post<LoginResponse>('/login', loginRequest); // Mitä <LoginResponse> tekee? Paluu arvon tyyppi vai parametrin tyyppi? 
+            const loginResponse = await api.post<LoginResponse>('/login', loginRequest);
             if (loginResponse.status !== 200) {
                 throw new Error('Login failed');
             }

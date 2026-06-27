@@ -70,7 +70,7 @@ Per-domain interfaces in [src/types/](src/types/). Note the common split between
 - **Strict TypeScript** ([tsconfig.app.json](tsconfig.app.json)): `strict`, `noUnusedLocals`, `noUnusedParameters`. `verbatimModuleSyntax` is on, so import types with `import type { ... }` (the codebase already does this consistently). Relative imports may include the `.tsx`/`.ts` extension (`allowImportingTsExtensions`).
 - **UI**: React-Bootstrap components + Bootstrap 5.3 utility classes + bootstrap-icons (`<i className="bi bi-pencil">`). Prefer Bootstrap classes/components over custom CSS.
 - **Routing**: `react-router-dom` v7 (`BrowserRouter`, `useNavigate`, `useParams`, `Link`); `react-router-bootstrap` (`LinkContainer`) wires Bootstrap nav items to the router in the Navbar.
-- Components are heavily JSDoc-commented. As a learning project, some files contain Finnish learner notes/questions in comments — leave them unless asked to clean up.
+- Components are heavily JSDoc-commented.
 
 ## Backend integration
 
