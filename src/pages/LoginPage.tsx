@@ -22,7 +22,6 @@ function LoginPage() {
      */
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(username, password);
         const loginRequest: LoginRequest = {
             username: username,
             password: password
@@ -54,32 +53,46 @@ function LoginPage() {
      * @returns Login page
      */
     return (
-        <div className="d-flex align-items-center justify-content-center flex-grow-1">
-            <h1 className="fs-4 fw-bold">Login</h1>
-            <form className="bg-white rounded shadow p-4" onSubmit={handleSubmit}>
-                {error && <p className="text-danger small mt-2">{error}</p>}
-                <input
-                    className="form-control mt-2"
-                    type="text"
-                    value={username}
-                    onChange={(event) => {
-                        setUsername(event.target.value);
-                        setError("");
-                    }}
-                    placeholder="Username"
-                />
-                <input
-                    className="form-control mt-2"
-                    type="password"
-                    value={password}
-                    onChange={(event) => {
-                        setPassword(event.target.value);
-                        setError("");
-                    }}
-                    placeholder="Password"
-                />
-                <button type="submit" className="btn btn-primary mt-3">Login</button>
-            </form>
+        <div className="d-flex align-items-center justify-content-center flex-grow-1 p-3">
+            <div className="card border-0 shadow w-100" style={{ maxWidth: "400px" }}>
+                <div className="card-body p-4 p-sm-5">
+                    <h1 className="fs-3 fw-bold text-center mb-4">Login</h1>
+                    <form onSubmit={handleSubmit}>
+                        {error && <div className="alert alert-danger py-2 small">{error}</div>}
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label">Username</label>
+                            <input
+                                id="username"
+                                className="form-control"
+                                type="text"
+                                value={username}
+                                onChange={(event) => {
+                                    setUsername(event.target.value);
+                                    setError("");
+                                }}
+                                placeholder="Username"
+                                autoComplete="username"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
+                                id="password"
+                                className="form-control"
+                                type="password"
+                                value={password}
+                                onChange={(event) => {
+                                    setPassword(event.target.value);
+                                    setError("");
+                                }}
+                                placeholder="Password"
+                                autoComplete="current-password"
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 };
