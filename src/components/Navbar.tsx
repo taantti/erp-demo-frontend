@@ -28,8 +28,15 @@ const NavBar = () => {
                         <LinkContainer to="/">
                             <Nav.Link>Dashboard</Nav.Link>
                         </LinkContainer>
-
-
+                        {userData?.rolePermission?.customer?.readCustomers?.access && (
+                            <NavDropdown title="Customer" id="customers-dropdown">
+                                {userData?.rolePermission?.customer?.readCustomers?.access && (
+                                    <LinkContainer to="/customers">
+                                        <NavDropdown.Item>Customers</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                            </NavDropdown>
+                        )}
                         {(userData?.rolePermission?.product?.readProducts?.access || userData?.rolePermission?.productCategory?.readProductCategories?.access) && (
                             <NavDropdown title="Product" id="products-dropdown">
                                 {userData?.rolePermission?.product?.readProducts?.access && (

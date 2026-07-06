@@ -15,6 +15,8 @@ import StocksPage from "./pages/StocksPage";
 import StockFormPage from "./pages/StockFormPage";
 import StockShelvesPage from "./pages/StockShelvesPage";
 import StockShelfFormPage from "./pages/StockShelfFormPage";
+import CustomersPage from "./pages/CustomersPage";
+import CustomerFormPage from "./pages/CustomerFormPage";
 
 /**
  * Main application component
@@ -44,6 +46,27 @@ const AppLayout = () => {
         <Route path="/" element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/customers" element={
+          <ProtectedRoute>
+            <PermissionGuard module="customer" feature="readCustomers">
+              <CustomersPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="customers/new" element={
+          <ProtectedRoute>
+            <PermissionGuard module="customer" feature="createCustomer">
+              <CustomerFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/customers/:id/edit" element={
+          <ProtectedRoute>
+            <PermissionGuard module="customer" feature="updateCustomer">
+              <CustomerFormPage />
+            </PermissionGuard>
           </ProtectedRoute>
         } />
         <Route path="/products" element={
