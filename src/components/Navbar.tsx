@@ -51,9 +51,13 @@ const NavBar = () => {
                                 )}
                             </NavDropdown>
                         )}
-
-
-
+                        {userData?.rolePermission?.purchaseOrder?.readPurchaseOrders?.access && (
+                            <NavDropdown title="Purchase order" id="purchase-orders-dropdown">
+                                <LinkContainer to="/purchase-orders">
+                                    <NavDropdown.Item>Purchase orders</NavDropdown.Item>
+                                </LinkContainer>
+                            </NavDropdown>
+                        )}
                         {userData?.rolePermission?.user?.readUsers?.access && (
                             <NavDropdown title="User" id="user-dropdown">
                                 {userData?.rolePermission?.user?.readUsers?.access && (
@@ -63,13 +67,6 @@ const NavBar = () => {
                                 )}
                             </NavDropdown>
                         )}
-
-
-
-
-
-
-
                         {(userData?.rolePermission?.stock?.readStocks?.access || userData?.rolePermission?.stock?.readShelves?.access) && (
                             <NavDropdown title="Stock" id="stock-dropdown">
                                 {userData?.rolePermission?.stock?.readStocks?.access && (

@@ -17,6 +17,8 @@ import StockShelvesPage from "./pages/StockShelvesPage";
 import StockShelfFormPage from "./pages/StockShelfFormPage";
 import CustomersPage from "./pages/CustomersPage";
 import CustomerFormPage from "./pages/CustomerFormPage";
+import PurchaseOrdersPage from "./pages/PurchaseOrdersPage";
+import PurchaseOrderFormPage from "./pages/PurchaseOrderFormPage";
 
 /**
  * Main application component
@@ -101,6 +103,27 @@ const AppLayout = () => {
           <ProtectedRoute>
             <PermissionGuard module="productCategory" feature="createProductCategory">
               <ProductCategoryFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/purchase-orders" element={
+          <ProtectedRoute>
+            <PermissionGuard module="purchaseOrder" feature="readPurchaseOrders">
+              <PurchaseOrdersPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/purchase-orders/new" element={
+          <ProtectedRoute>
+            <PermissionGuard module="purchaseOrder" feature="createPurchaseOrder">
+              <PurchaseOrderFormPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        } />
+        <Route path="/purchase-orders/:id/edit" element={
+          <ProtectedRoute>
+            <PermissionGuard module="purchaseOrder" feature="updatePurchaseOrder">
+              <PurchaseOrderFormPage />
             </PermissionGuard>
           </ProtectedRoute>
         } />
