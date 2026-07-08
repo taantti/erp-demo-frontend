@@ -58,6 +58,13 @@ const NavBar = () => {
                                 </LinkContainer>
                             </NavDropdown>
                         )}
+                        {userData?.rolePermission?.saleOrder?.readSaleOrders?.access && (
+                            <NavDropdown title="Sale order" id="sale-orders-dropdown">
+                                <LinkContainer to="/sale-orders">
+                                    <NavDropdown.Item>Sale orders</NavDropdown.Item>
+                                </LinkContainer>
+                            </NavDropdown>
+                        )}
                         {userData?.rolePermission?.user?.readUsers?.access && (
                             <NavDropdown title="User" id="user-dropdown">
                                 {userData?.rolePermission?.user?.readUsers?.access && (
